@@ -70,6 +70,6 @@ private:
     HWND m_pParentWnd;
     RECT m_rectWin;
 
-    std::vector<CTRLRECT> m_vecCtrl;//保存控件缩放信息
+    std::map<int, CTRLRECT> m_ctrlRect;//保存控件缩放信息
     std::map<int, DWORD> m_ctrlRectType;
 };
