@@ -2,18 +2,17 @@
 #include <Windows.h>
 #include <vector>
 #include <map>
+#include <set>
 
 typedef struct TAG_CTRLRECT
 {
 public:
-    int nId;//控件ID
     double dScale[4];//缩放值
 
     std::map<DWORD/*AnchorType*/, LONG> offsetAnchor;
 
     TAG_CTRLRECT()
     {
-        nId = 0;//未定义
         dScale[0] = 0;
         dScale[1] = 0;
         dScale[2] = 0;
@@ -22,10 +21,6 @@ public:
     TAG_CTRLRECT(const TAG_CTRLRECT& cr)
     {
         *this = cr;
-    }
-    bool operator () (const TAG_CTRLRECT& cr)
-    {
-        return (cr.nId == nId);
     }
 } CTRLRECT;
 
@@ -54,6 +49,8 @@ public:
     virtual ~CCtrlScale(void);
 
     void SetAnchor(int ctrlId, DWORD/*CCtrlScale::AnchorType*/ rectType);
+    void AddExclude(int ctrlId);
+    void RemoveExclude(int ctrlId);
     BOOL Init(HWND pParentWnd);
     
     void Reset();
@@ -72,4 +69,5 @@ private:
 
     std::map<int, CTRLRECT> m_ctrlRect;//保存控件缩放信息
     std::map<int, DWORD> m_ctrlAnchorType;
+    std::set<int> m_ctrlExclude;
 };

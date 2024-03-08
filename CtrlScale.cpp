@@ -49,6 +49,7 @@ void CCtrlScale::Reset()
 {
 	m_ctrlRect.clear();
 	m_ctrlAnchorType.clear();
+	m_ctrlExclude.clear();
 }
 
 void CCtrlScale::Scale(int cx, int cy)
@@ -68,6 +69,12 @@ void CCtrlScale::Scale(int cx, int cy)
 	while (hChild)
 	{
 		nID = ::GetDlgCtrlID(hChild);//获得控件ID
+		if (m_ctrlExclude.find(nID) != m_ctrlExclude.end())
+		{
+			hChild = ::GetWindow(hChild, GW_HWNDNEXT);
+			continue;
+		}
+
 		pWnd = ::GetDlgItem(m_pParentWnd, nID);//获取控件指针
 		if (pWnd)
 		{
@@ -178,6 +185,16 @@ void CCtrlScale::Scale(int cx, int cy)
 void CCtrlScale::SetAnchor(int id, DWORD/*CCtrlScale::AnchorType*/ rectType)
 {
 	m_ctrlAnchorType[id] |= rectType;
+}
+
+void CCtrlScale::AddExclude(int ctrlId)
+{
+	m_ctrlExclude.insert(ctrlId);
+}
+
+void CCtrlScale::RemoveExclude(int ctrlId)
+{
+	m_ctrlExclude.erase(ctrlId);
 }
 
 void CCtrlScale::removeScaleManager()

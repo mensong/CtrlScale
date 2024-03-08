@@ -72,6 +72,15 @@ void CTestCtrlScaleDlg::ResetControl()
 	rectDemo.bottom = rectDemo.top + m_demoCtrlHeight;
 
 	m_demoCtrl.MoveWindow(rectDemo);
+
+	m_scale.AddExclude(IDC_CHECK1);
+	m_scale.AddExclude(IDC_CHECK2);
+	m_scale.AddExclude(IDC_CHECK3);
+	m_scale.AddExclude(IDC_CHECK4);
+	m_scale.AddExclude(IDC_CHECK5);
+	m_scale.AddExclude(IDC_CHECK6);
+	m_scale.AddExclude(IDC_CHECK7);
+	m_scale.AddExclude(IDC_CHECK8);
 }
 
 BEGIN_MESSAGE_MAP(CTestCtrlScaleDlg, CDialogEx)
@@ -101,6 +110,7 @@ BOOL CTestCtrlScaleDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
+
 	m_scale.Init(m_hWnd);
 
 	CRect rectDemo;
