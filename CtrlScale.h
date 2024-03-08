@@ -46,7 +46,7 @@ public:
         AnchorBottomToWinBottom = 0b10000000,//控件底相对于窗口底的距离不变
     } AnchorType;
 
-    bool HasRectType(DWORD/*CCtrlScale::AnchorType*/ flags, CCtrlScale::AnchorType rectType);
+    bool HasAnchorType(DWORD/*CCtrlScale::AnchorType*/ flags, CCtrlScale::AnchorType rectType);
 
 public:
     CCtrlScale(void);
@@ -71,5 +71,5 @@ private:
     RECT m_rectWin;
 
     std::map<int, CTRLRECT> m_ctrlRect;//保存控件缩放信息
-    std::map<int, DWORD> m_ctrlRectType;
+    std::map<int, DWORD> m_ctrlAnchorType;
 };
