@@ -30,5 +30,3 @@ m_scale.AddExclude(IDCANCEL);
 ```C++
 m_scale.Init(m_hWnd);
 ```
-
-## 截图
