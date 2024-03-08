@@ -1,9 +1,8 @@
-#include "pch.h"
 #include "CtrlScale.h"
 
 std::map<HWND, CCtrlScale*> CCtrlScale::ms_scaleManagers;
 
-bool CCtrlScale::HasRectType(DWORD flags, CCtrlScale::RectType rectType)
+bool CCtrlScale::HasRectType(DWORD flags, CCtrlScale::AnchorType rectType)
 {
 	return (flags & rectType) != 0;
 }
@@ -93,37 +92,37 @@ void CCtrlScale::Scale(int cx, int cy)
 			std::vector<CTRLRECT>::iterator it = find_if(m_vecCtrl.begin(), m_vecCtrl.end(), cr);
 			if (it != m_vecCtrl.end())
 			{//如果保存的有该控件与窗口比值，直接乘上当前窗口大小
-				DWORD rectType = RectType::ProportionalScale;
+				DWORD rectType = AnchorType::ProportionalScale;
 				std::map<int, DWORD>::iterator itFinder = m_ctrlRectType.find(nID);
 				if (itFinder != m_ctrlRectType.end())
 				{
 					rectType = itFinder->second;
 				}
 
-				if (HasRectType(rectType, RectType::AnchorLeftToWinLeft))
+				if (HasRectType(rectType, AnchorType::AnchorLeftToWinLeft))
 					;//StaticLeft
-				else if (HasRectType(rectType, RectType::AnchorLeftToWinRight))
-					rect.left = cx - it->offsetAnchor[RectType::AnchorLeftToWinRight];
+				else if (HasRectType(rectType, AnchorType::AnchorLeftToWinRight))
+					rect.left = cx - it->offsetAnchor[AnchorType::AnchorLeftToWinRight];
 				else
 					rect.left = it->dScale[0] * cx;//ProportionalScale
 				
-				if (HasRectType(rectType, RectType::AnchorRightToWinRight))
-					rect.right = cx - it->offsetAnchor[RectType::AnchorRightToWinRight];
-				else if (HasRectType(rectType, RectType::AnchorRightToWinLeft))
-					rect.right = it->offsetAnchor[RectType::AnchorRightToWinLeft];
+				if (HasRectType(rectType, AnchorType::AnchorRightToWinRight))
+					rect.right = cx - it->offsetAnchor[AnchorType::AnchorRightToWinRight];
+				else if (HasRectType(rectType, AnchorType::AnchorRightToWinLeft))
+					rect.right = it->offsetAnchor[AnchorType::AnchorRightToWinLeft];
 				else
 					rect.right = it->dScale[1] * cx;//ProportionalScale
 
-				if (HasRectType(rectType, RectType::AnchorTopToWinTop))
+				if (HasRectType(rectType, AnchorType::AnchorTopToWinTop))
 					;//StaticTop
-				else if (HasRectType(rectType, RectType::AnchorTopToWinBottom))
-					rect.top = cy - it->offsetAnchor[RectType::AnchorTopToWinBottom];
+				else if (HasRectType(rectType, AnchorType::AnchorTopToWinBottom))
+					rect.top = cy - it->offsetAnchor[AnchorType::AnchorTopToWinBottom];
 				else
 					rect.top = it->dScale[2] * cy;//ProportionalScale
 
-				if (HasRectType(rectType, RectType::AnchorBottomToWinBottom))
-					rect.bottom = cy - it->offsetAnchor[RectType::AnchorBottomToWinBottom];
-				else if (HasRectType(rectType, RectType::AnchorBottomToWinTop))
+				if (HasRectType(rectType, AnchorType::AnchorBottomToWinBottom))
+					rect.bottom = cy - it->offsetAnchor[AnchorType::AnchorBottomToWinBottom];
+				else if (HasRectType(rectType, AnchorType::AnchorBottomToWinTop))
 					;
 				else
 					rect.bottom = it->dScale[3] * cy;//ProportionalScale
@@ -137,7 +136,7 @@ void CCtrlScale::Scale(int cx, int cy)
 				cr.dScale[2] = (double)rect.top / winHeight;
 				cr.dScale[3] = (double)rect.bottom / winHeight;
 
-				DWORD rectType = RectType::ProportionalScale;
+				DWORD rectType = AnchorType::ProportionalScale;
 				std::map<int, DWORD>::iterator itFinder = m_ctrlRectType.find(nID);
 				if (itFinder != m_ctrlRectType.end())
 				{
@@ -145,45 +144,45 @@ void CCtrlScale::Scale(int cx, int cy)
 				}
 
 				//调整控件大小
-				if (HasRectType(rectType, RectType::AnchorLeftToWinLeft))
+				if (HasRectType(rectType, AnchorType::AnchorLeftToWinLeft))
 					;//StaticLeft
-				else if (HasRectType(rectType, RectType::AnchorLeftToWinRight))
+				else if (HasRectType(rectType, AnchorType::AnchorLeftToWinRight))
 				{
-					cr.offsetAnchor[RectType::AnchorLeftToWinRight] = winWidth - rect.left;
-					rect.left = cx - cr.offsetAnchor[RectType::AnchorLeftToWinRight];
+					cr.offsetAnchor[AnchorType::AnchorLeftToWinRight] = winWidth - rect.left;
+					rect.left = cx - cr.offsetAnchor[AnchorType::AnchorLeftToWinRight];
 				}
 				else
 					rect.left = cr.dScale[0] * cx;//ProportionalScale
 
-				if (HasRectType(rectType, RectType::AnchorRightToWinRight))
+				if (HasRectType(rectType, AnchorType::AnchorRightToWinRight))
 				{
-					cr.offsetAnchor[RectType::AnchorRightToWinRight] = winWidth - rect.right;
-					rect.right = winWidth - cr.offsetAnchor[RectType::AnchorRightToWinRight];
+					cr.offsetAnchor[AnchorType::AnchorRightToWinRight] = winWidth - rect.right;
+					rect.right = winWidth - cr.offsetAnchor[AnchorType::AnchorRightToWinRight];
 				}
-				else if (HasRectType(rectType, RectType::AnchorRightToWinLeft))
+				else if (HasRectType(rectType, AnchorType::AnchorRightToWinLeft))
 				{
-					cr.offsetAnchor[RectType::AnchorRightToWinLeft] = rect.right;
-					rect.right = cr.offsetAnchor[RectType::AnchorRightToWinLeft];
+					cr.offsetAnchor[AnchorType::AnchorRightToWinLeft] = rect.right;
+					rect.right = cr.offsetAnchor[AnchorType::AnchorRightToWinLeft];
 				}
 				else
 					rect.right = cr.dScale[1] * cx;//ProportionalScale
 
-				if (HasRectType(rectType, RectType::AnchorTopToWinTop))
+				if (HasRectType(rectType, AnchorType::AnchorTopToWinTop))
 					;//StaticTop
-				else if (HasRectType(rectType, RectType::AnchorTopToWinBottom))
+				else if (HasRectType(rectType, AnchorType::AnchorTopToWinBottom))
 				{
-					cr.offsetAnchor[RectType::AnchorTopToWinBottom] = winHeight - rect.top;
-					rect.top = winHeight - cr.offsetAnchor[RectType::AnchorTopToWinBottom];
+					cr.offsetAnchor[AnchorType::AnchorTopToWinBottom] = winHeight - rect.top;
+					rect.top = winHeight - cr.offsetAnchor[AnchorType::AnchorTopToWinBottom];
 				}
 				else
 					rect.top = cr.dScale[2] * cy;;//ProportionalScale
 
-				if (HasRectType(rectType, RectType::AnchorBottomToWinBottom))
+				if (HasRectType(rectType, AnchorType::AnchorBottomToWinBottom))
 				{
-					cr.offsetAnchor[RectType::AnchorBottomToWinBottom] = winHeight - rect.bottom;
-					rect.bottom = winHeight - cr.offsetAnchor[RectType::AnchorBottomToWinBottom];
+					cr.offsetAnchor[AnchorType::AnchorBottomToWinBottom] = winHeight - rect.bottom;
+					rect.bottom = winHeight - cr.offsetAnchor[AnchorType::AnchorBottomToWinBottom];
 				}
-				else if (HasRectType(rectType, RectType::AnchorBottomToWinTop))
+				else if (HasRectType(rectType, AnchorType::AnchorBottomToWinTop))
 					;
 				else
 					rect.bottom = cr.dScale[3] * cy;//ProportionalScale
@@ -208,7 +207,7 @@ void CCtrlScale::Scale(int cx, int cy)
 	::GetClientRect(m_pParentWnd, &m_rectWin);//获取变化后的窗口大小
 }
 
-void CCtrlScale::SetAnchor(int id, DWORD/*CCtrlScale::RectType*/ rectType)
+void CCtrlScale::SetAnchor(int id, DWORD/*CCtrlScale::AnchorType*/ rectType)
 {
 	m_ctrlRectType[id] |= rectType;
 }

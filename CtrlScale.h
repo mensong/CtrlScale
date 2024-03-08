@@ -1,4 +1,5 @@
 #pragma once
+#include <Windows.h>
 #include <vector>
 #include <map>
 
@@ -8,7 +9,7 @@ public:
     int nId;//控件ID
     double dScale[4];//缩放值
 
-    std::map<DWORD/*RectType*/, LONG> offsetAnchor;
+    std::map<DWORD/*AnchorType*/, LONG> offsetAnchor;
 
     TAG_CTRLRECT()
     {
@@ -31,7 +32,7 @@ public:
 class CCtrlScale
 {
 public:
-    typedef enum RectType
+    typedef enum AnchorType
     {
 		ProportionalScale = 0b0,    //按比例缩放(默认)
 
@@ -43,16 +44,16 @@ public:
         AnchorTopToWinBottom    = 0b100000,  //控件顶相对于窗口底的距离不变
         AnchorBottomToWinTop    = 0b1000000, //控件底相对于窗口顶的距离不变
         AnchorBottomToWinBottom = 0b10000000,//控件底相对于窗口底的距离不变
-    } RectType;
+    } AnchorType;
 
-    bool HasRectType(DWORD/*CCtrlScale::RectType*/ flags, CCtrlScale::RectType rectType);
+    bool HasRectType(DWORD/*CCtrlScale::AnchorType*/ flags, CCtrlScale::AnchorType rectType);
 
 public:
     CCtrlScale(void);
     CCtrlScale(HWND pParentWnd);
     virtual ~CCtrlScale(void);
 
-    void SetAnchor(int ctrlId, DWORD/*CCtrlScale::RectType*/ rectType);
+    void SetAnchor(int ctrlId, DWORD/*CCtrlScale::AnchorType*/ rectType);
     BOOL Init(HWND pParentWnd);
     
     void Reset();
