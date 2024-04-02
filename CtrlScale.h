@@ -29,7 +29,7 @@ class CCtrlScale
 public:
     typedef enum AnchorType
     {
-		ProportionalScale = 0b0,    //按比例缩放(默认)
+		ProportionalScale       = 0b0,       //按比例缩放(默认)
 
         AnchorLeftToWinLeft     = 0b1,       //控件左相对于窗口左的距离不变
         AnchorLeftToWinRight    = 0b10,      //控件左相对于窗口右的距离不变
@@ -48,9 +48,10 @@ public:
     CCtrlScale(HWND pParentWnd);
     virtual ~CCtrlScale(void);
 
-    void SetAnchor(int ctrlId, DWORD/*CCtrlScale::AnchorType*/ rectType);
-    void AddExclude(int ctrlId);
-    void RemoveExclude(int ctrlId);
+    void SetAnchor(HWND ctrl, DWORD/*CCtrlScale::AnchorType*/ rectType);
+    void AddExclude(HWND ctrl);
+    void RemoveExclude(HWND ctrl);
+
     BOOL Init(HWND pParentWnd);
     
     void Reset();
@@ -67,7 +68,7 @@ private:
     HWND m_pParentWnd;
     RECT m_rectWin;
 
-    std::map<int, CTRLRECT> m_ctrlRect;//保存控件缩放信息
-    std::map<int, DWORD> m_ctrlAnchorType;
-    std::set<int> m_ctrlExclude;
+    std::map<HWND, CTRLRECT> m_ctrlRect;//保存控件缩放信息
+    std::map<HWND, DWORD> m_ctrlAnchorType;
+    std::set<HWND> m_ctrlExclude;
 };

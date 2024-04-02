@@ -46,18 +46,43 @@ BOOL CCtrlScaleDemoDlg::OnInitDialog()
 	SetIcon(m_hIcon, FALSE);		// 设置小图标
 
 	// TODO: 在此添加额外的初始化代码
-	m_scale.SetAnchor(IDC_CHECK1, CCtrlScale::AnchorLeftToWinLeft | CCtrlScale::AnchorRightToWinLeft | CCtrlScale::AnchorTopToWinTop);
-	m_scale.SetAnchor(IDC_RADIO1, CCtrlScale::AnchorLeftToWinLeft | CCtrlScale::AnchorRightToWinLeft);
-	m_scale.SetAnchor(IDC_STATIC1, CCtrlScale::AnchorLeftToWinLeft | CCtrlScale::AnchorRightToWinLeft);
-	m_scale.SetAnchor(IDC_SYSLINK1, CCtrlScale::AnchorLeftToWinLeft | CCtrlScale::AnchorRightToWinLeft);
-	m_scale.SetAnchor(IDC_EDIT1, CCtrlScale::AnchorTopToWinTop);
-	m_scale.SetAnchor(IDC_COMBO1, CCtrlScale::AnchorTopToWinTop);
-	m_scale.SetAnchor(IDC_LIST1, CCtrlScale::AnchorTopToWinTop);
-	m_scale.SetAnchor(IDC_LIST2, CCtrlScale::AnchorTopToWinTop);
-	m_scale.SetAnchor(IDC_SCROLLBAR1, CCtrlScale::AnchorTopToWinBottom | CCtrlScale::AnchorBottomToWinBottom | CCtrlScale::AnchorLeftToWinLeft | CCtrlScale::AnchorRightToWinRight);
-	m_scale.SetAnchor(IDC_SCROLLBAR2, CCtrlScale::AnchorLeftToWinRight | CCtrlScale::AnchorRightToWinRight | CCtrlScale::AnchorTopToWinTop | CCtrlScale::AnchorBottomToWinBottom);
-	m_scale.SetAnchor(IDCANCEL, CCtrlScale::AnchorTopToWinBottom | CCtrlScale::AnchorBottomToWinBottom);
-	m_scale.SetAnchor(IDOK, CCtrlScale::AnchorTopToWinBottom | CCtrlScale::AnchorBottomToWinBottom);
+	m_scale.SetAnchor(GetDlgItem(IDC_CHECK1)->GetSafeHwnd(),
+		CCtrlScale::AnchorLeftToWinLeft | 
+		CCtrlScale::AnchorRightToWinLeft | 
+		CCtrlScale::AnchorTopToWinTop);
+	m_scale.SetAnchor(GetDlgItem(IDC_RADIO1)->GetSafeHwnd(),
+		CCtrlScale::AnchorLeftToWinLeft | 
+		CCtrlScale::AnchorRightToWinLeft);
+	m_scale.SetAnchor(GetDlgItem(IDC_STATIC1)->GetSafeHwnd(),
+		CCtrlScale::AnchorLeftToWinLeft | 
+		CCtrlScale::AnchorRightToWinLeft);
+	m_scale.SetAnchor(GetDlgItem(IDC_SYSLINK1)->GetSafeHwnd(),
+		CCtrlScale::AnchorLeftToWinLeft | 
+		CCtrlScale::AnchorRightToWinLeft);
+	m_scale.SetAnchor(GetDlgItem(IDC_EDIT1)->GetSafeHwnd(),
+		CCtrlScale::AnchorTopToWinTop);
+	m_scale.SetAnchor(GetDlgItem(IDC_COMBO1)->GetSafeHwnd(),
+		CCtrlScale::AnchorTopToWinTop);
+	m_scale.SetAnchor(GetDlgItem(IDC_LIST1)->GetSafeHwnd(),
+		CCtrlScale::AnchorTopToWinTop);
+	m_scale.SetAnchor(GetDlgItem(IDC_LIST2)->GetSafeHwnd(),
+		CCtrlScale::AnchorTopToWinTop);
+	m_scale.SetAnchor(GetDlgItem(IDC_SCROLLBAR1)->GetSafeHwnd(),
+		CCtrlScale::AnchorTopToWinBottom | 
+		CCtrlScale::AnchorBottomToWinBottom | 
+		CCtrlScale::AnchorLeftToWinLeft | 
+		CCtrlScale::AnchorRightToWinRight);
+	m_scale.SetAnchor(GetDlgItem(IDC_SCROLLBAR2)->GetSafeHwnd(),
+		CCtrlScale::AnchorLeftToWinRight | 
+		CCtrlScale::AnchorRightToWinRight | 
+		CCtrlScale::AnchorTopToWinTop | 
+		CCtrlScale::AnchorBottomToWinBottom);
+	m_scale.SetAnchor(GetDlgItem(IDCANCEL)->GetSafeHwnd(),
+		CCtrlScale::AnchorTopToWinBottom | 
+		CCtrlScale::AnchorBottomToWinBottom);
+	m_scale.SetAnchor(GetDlgItem(IDOK)->GetSafeHwnd(),
+		CCtrlScale::AnchorTopToWinBottom | 
+		CCtrlScale::AnchorBottomToWinBottom);
 	m_scale.Init(m_hWnd);
 
 	return TRUE;  // 除非将焦点设置到控件，否则返回 TRUE

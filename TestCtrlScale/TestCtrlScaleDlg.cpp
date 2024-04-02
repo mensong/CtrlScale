@@ -36,28 +36,28 @@ void CTestCtrlScaleDlg::ResetScale()
 
 	CButton* pbtn = (CButton*)GetDlgItem(IDC_CHECK1);
 	if (pbtn->GetCheck())
-		m_scale.SetAnchor(m_demoCtrl.GetDlgCtrlID(), CCtrlScale::AnchorLeftToWinLeft);
+		m_scale.SetAnchor(m_demoCtrl.GetSafeHwnd(), CCtrlScale::AnchorLeftToWinLeft);
 	pbtn = (CButton*)GetDlgItem(IDC_CHECK2);
 	if (pbtn->GetCheck())
-		m_scale.SetAnchor(m_demoCtrl.GetDlgCtrlID(), CCtrlScale::AnchorLeftToWinRight);
+		m_scale.SetAnchor(m_demoCtrl.GetSafeHwnd(), CCtrlScale::AnchorLeftToWinRight);
 	pbtn = (CButton*)GetDlgItem(IDC_CHECK3);
 	if (pbtn->GetCheck())
-		m_scale.SetAnchor(m_demoCtrl.GetDlgCtrlID(), CCtrlScale::AnchorRightToWinLeft);
+		m_scale.SetAnchor(m_demoCtrl.GetSafeHwnd(), CCtrlScale::AnchorRightToWinLeft);
 	pbtn = (CButton*)GetDlgItem(IDC_CHECK4);
 	if (pbtn->GetCheck())
-		m_scale.SetAnchor(m_demoCtrl.GetDlgCtrlID(), CCtrlScale::AnchorRightToWinRight);
+		m_scale.SetAnchor(m_demoCtrl.GetSafeHwnd(), CCtrlScale::AnchorRightToWinRight);
 	pbtn = (CButton*)GetDlgItem(IDC_CHECK5);
 	if (pbtn->GetCheck())
-		m_scale.SetAnchor(m_demoCtrl.GetDlgCtrlID(), CCtrlScale::AnchorTopToWinTop);
+		m_scale.SetAnchor(m_demoCtrl.GetSafeHwnd(), CCtrlScale::AnchorTopToWinTop);
 	pbtn = (CButton*)GetDlgItem(IDC_CHECK6);
 	if (pbtn->GetCheck())
-		m_scale.SetAnchor(m_demoCtrl.GetDlgCtrlID(), CCtrlScale::AnchorTopToWinBottom);
+		m_scale.SetAnchor(m_demoCtrl.GetSafeHwnd(), CCtrlScale::AnchorTopToWinBottom);
 	pbtn = (CButton*)GetDlgItem(IDC_CHECK7);
 	if (pbtn->GetCheck())
-		m_scale.SetAnchor(m_demoCtrl.GetDlgCtrlID(), CCtrlScale::AnchorBottomToWinTop);
+		m_scale.SetAnchor(m_demoCtrl.GetSafeHwnd(), CCtrlScale::AnchorBottomToWinTop);
 	pbtn = (CButton*)GetDlgItem(IDC_CHECK8);
 	if (pbtn->GetCheck())
-		m_scale.SetAnchor(m_demoCtrl.GetDlgCtrlID(), CCtrlScale::AnchorBottomToWinBottom);
+		m_scale.SetAnchor(m_demoCtrl.GetSafeHwnd(), CCtrlScale::AnchorBottomToWinBottom);
 }
 
 void CTestCtrlScaleDlg::ResetControl()
@@ -73,14 +73,14 @@ void CTestCtrlScaleDlg::ResetControl()
 
 	m_demoCtrl.MoveWindow(rectDemo);
 
-	m_scale.AddExclude(IDC_CHECK1);
-	m_scale.AddExclude(IDC_CHECK2);
-	m_scale.AddExclude(IDC_CHECK3);
-	m_scale.AddExclude(IDC_CHECK4);
-	m_scale.AddExclude(IDC_CHECK5);
-	m_scale.AddExclude(IDC_CHECK6);
-	m_scale.AddExclude(IDC_CHECK7);
-	m_scale.AddExclude(IDC_CHECK8);
+	m_scale.AddExclude(GetDlgItem(IDC_CHECK1)->GetSafeHwnd());
+	m_scale.AddExclude(GetDlgItem(IDC_CHECK2)->GetSafeHwnd());
+	m_scale.AddExclude(GetDlgItem(IDC_CHECK3)->GetSafeHwnd());
+	m_scale.AddExclude(GetDlgItem(IDC_CHECK4)->GetSafeHwnd());
+	m_scale.AddExclude(GetDlgItem(IDC_CHECK5)->GetSafeHwnd());
+	m_scale.AddExclude(GetDlgItem(IDC_CHECK6)->GetSafeHwnd());
+	m_scale.AddExclude(GetDlgItem(IDC_CHECK7)->GetSafeHwnd());
+	m_scale.AddExclude(GetDlgItem(IDC_CHECK8)->GetSafeHwnd());
 }
 
 BEGIN_MESSAGE_MAP(CTestCtrlScaleDlg, CDialogEx)
