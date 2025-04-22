@@ -29,16 +29,16 @@ class CCtrlScale
 public:
     typedef enum AnchorType
     {
-		ProportionalScale       = 0b0,       //按比例缩放(默认)
+		ProportionalScale       = 0x0,  //按比例缩放(默认)
 
-        AnchorLeftToWinLeft     = 0b1,       //控件左相对于窗口左的距离不变
-        AnchorLeftToWinRight    = 0b10,      //控件左相对于窗口右的距离不变
-        AnchorRightToWinLeft    = 0b100,     //控件右相对于窗口左的距离不变
-        AnchorRightToWinRight   = 0b1000,    //控件右相对于窗口右的距离不变
-        AnchorTopToWinTop       = 0b10000,   //控件顶相对于窗口顶的距离不变
-        AnchorTopToWinBottom    = 0b100000,  //控件顶相对于窗口底的距离不变
-        AnchorBottomToWinTop    = 0b1000000, //控件底相对于窗口顶的距离不变
-        AnchorBottomToWinBottom = 0b10000000,//控件底相对于窗口底的距离不变
+        AnchorLeftToWinLeft     = 0x1,  //控件左相对于窗口左的距离不变
+        AnchorLeftToWinRight    = 0x2,  //控件左相对于窗口右的距离不变
+        AnchorRightToWinLeft    = 0x4,  //控件右相对于窗口左的距离不变
+        AnchorRightToWinRight   = 0x8,  //控件右相对于窗口右的距离不变
+        AnchorTopToWinTop       = 0x10, //控件顶相对于窗口顶的距离不变
+        AnchorTopToWinBottom    = 0x20, //控件顶相对于窗口底的距离不变
+        AnchorBottomToWinTop    = 0x40, //控件底相对于窗口顶的距离不变
+        AnchorBottomToWinBottom = 0x80, //控件底相对于窗口底的距离不变
     } AnchorType;
 
     bool HasAnchorType(DWORD/*CCtrlScale::AnchorType*/ flags, CCtrlScale::AnchorType rectType);
