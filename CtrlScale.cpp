@@ -1,4 +1,5 @@
 #include "CtrlScale.h"
+#include <tchar.h>
 
 std::map<HWND, CCtrlScale*> CCtrlScale::ms_scaleManagers;
 
@@ -75,7 +76,9 @@ void CCtrlScale::Scale(int cx, int cy)
 
 		//处理控件变化
 		RECT rect;//获取当前控件的大小
+		RECT rectOrg;
 		::GetWindowRect(hChild, &rect);
+		rectOrg = rect;//原始大小
 		POINT pt;
 		pt.x = rect.left;
 		pt.y = rect.top;
@@ -160,18 +163,19 @@ void CCtrlScale::Scale(int cx, int cy)
 		else
 			rect.bottom = cr.dScale[3] * cy;//ProportionalScale
 
+		LONG ctrlWidth = rect.right - rect.left;
+		LONG ctrlHeight = rect.bottom - rect.top;
 
-		//if (hChild->IsKindOf(RUNTIME_CLASS(CComboBox)))
-		//{
-		//	//解决ComboBox缩放后,无法下拉的问题
-		//	hChild->MoveWindow(rect.left, rect.top, rect.Width(), rect.Height() + 200);
-		//}
-		//else
+		TCHAR className[32];
+		::GetClassName(hChild, className, 32);
+		if (_tcscmp(className, _T("ComboBox")) == 0) 
 		{
-			LONG ctrlWidth = rect.right - rect.left;
-			LONG ctrlHeight = rect.bottom - rect.top;
-			::MoveWindow(hChild, rect.left, rect.top, ctrlWidth, ctrlHeight, TRUE);//设置控件大小
+			//如果是ComboBox控件，设置高度为原来的高度
+			// 解决ComboBox控件在缩放时下拉列表出不来的问题
+			ctrlHeight = rectOrg.bottom - rectOrg.top;
 		}
+		
+		::MoveWindow(hChild, rect.left, rect.top, ctrlWidth, ctrlHeight, TRUE);//设置控件大小
 
 		hChild = ::GetWindow(hChild, GW_HWNDNEXT);
 	}
